@@ -604,7 +604,7 @@ function settle(table: TableState) {
         hand.payout = 0;
         details.push("BJ push");
       } else if (playerBJ) {
-        const win = Math.floor(hand.bet * BJ_PAYOUT);
+        const win = Math.round(hand.bet * BJ_PAYOUT);
         player.chips += hand.bet + win;
         net += win;
         hand.status = "blackjack";

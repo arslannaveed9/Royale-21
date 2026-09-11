@@ -64,68 +64,79 @@ export function LobbyClient({
   return (
     <main className="page-shell">
       <ClubNav user={user} />
-      <section className="lobby-grid">
+
+      <section className="lobby-hero">
         <div>
           <p className="eyebrow">The floor</p>
           <h1>Good evening, {user.displayName}.</h1>
           <p className="lede">
-            Bankroll {money(user.chips)}. Six-deck shoe, dealer hits soft 17, blackjack pays 3:2.
+            Six-deck shoe, dealer hits soft 17, blackjack pays 3:2. Choose a table and sit down.
           </p>
-          <label>
-            Table name
+        </div>
+        <div className="bankroll-card">
+          <span>Bankroll</span>
+          <b>{money(user.chips)}</b>
+        </div>
+      </section>
+
+      <label className="field lobby-toolbar">
+        Table name
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Optional night title"
+        />
+      </label>
+
+      {error ? <p className="error-line" style={{ marginBottom: 12 }}>{error}</p> : null}
+
+      <section className="mode-grid">
+        <article className="mode-card">
+          <h3>Heads-up</h3>
+          <p>Just you and the house. Hit, stand, double, split, and surrender.</p>
+          <button className="btn-gold" disabled={busy} onClick={() => createTable("solo", 0)}>
+            Play the dealer
+          </button>
+        </article>
+        <article className="mode-card">
+          <h3>Computer table</h3>
+          <p>Sit with two computer players. They are not members and never appear on the board.</p>
+          <button className="btn-gold" disabled={busy} onClick={() => createTable("solo", 2)}>
+            Seat computers
+          </button>
+        </article>
+        <article className="mode-card">
+          <h3>Friends table</h3>
+          <p>Private table with a share code. Only people you invite can sit down.</p>
+          <button className="btn-gold" disabled={busy} onClick={() => createTable("multi", 0)}>
+            Host friends
+          </button>
+        </article>
+      </section>
+
+      <section className="lobby-lower">
+        <div className="panel">
+          <h2>Join a friend</h2>
+          <ol className="howto">
+            <li>They tap <b>Host friends</b> and copy the 6-letter table code.</li>
+            <li>You sign in, paste that code here, and tap Sit down.</li>
+            <li>Or open the invite link they send after you are signed in.</li>
+          </ol>
+          <div className="join-row">
             <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Optional night title"
+              value={code}
+              onChange={(e) => setCode(e.target.value.toUpperCase())}
+              placeholder="TABLE CODE"
+              maxLength={6}
             />
-          </label>
-          {error ? <p className="error-line">{error}</p> : null}
-          <div className="mode-grid">
-            <article className="mode-card">
-              <h3>Heads-up</h3>
-              <p>Just you and the house. Hit, stand, double, split, and surrender.</p>
-              <button className="btn-gold" disabled={busy} onClick={() => createTable("solo", 0)}>
-                Play the dealer
-              </button>
-            </article>
-            <article className="mode-card">
-              <h3>Computer table</h3>
-              <p>Sit with two computer players. They are not members and never appear on the board.</p>
-              <button className="btn-gold" disabled={busy} onClick={() => createTable("solo", 2)}>
-                Seat computers
-              </button>
-            </article>
-            <article className="mode-card">
-              <h3>Friends table</h3>
-              <p>Private table with a share code. Only people you invite can sit down.</p>
-              <button className="btn-gold" disabled={busy} onClick={() => createTable("multi", 0)}>
-                Host friends
-              </button>
-            </article>
-          </div>
-          <div className="panel" style={{ width: "100%" }}>
-            <h2>Join a friend</h2>
-            <ol className="howto">
-              <li>They tap <b>Host friends</b> and copy the 6-letter table code.</li>
-              <li>You sign in, paste that code here, and tap Sit down.</li>
-              <li>Or open the invite link they send after you are signed in.</li>
-            </ol>
-            <div className="join-row">
-              <input
-                value={code}
-                onChange={(e) => setCode(e.target.value.toUpperCase())}
-                placeholder="TABLE CODE"
-                maxLength={6}
-              />
-              <button className="btn-gold" disabled={busy || code.length < 4} onClick={join}>
-                Sit down
-              </button>
-            </div>
+            <button className="btn-gold" disabled={busy || code.length < 4} onClick={join}>
+              Sit down
+            </button>
           </div>
         </div>
-        <aside className="panel" style={{ width: "100%" }}>
+        <aside className="panel">
           <h2>High rollers</h2>
-          <p className="muted">Live members only. Computers and unused test seats stay off this list.</p>
+          <p className="muted">Members with hands played. Computers stay off this list.</p>
           {board.length === 0 ? (
             <p className="muted">No hands on the book yet.</p>
           ) : (

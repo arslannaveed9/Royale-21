@@ -23,11 +23,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${cinzel.variable} ${outfit.variable} h-full antialiased`}
+      className={`${cinzel.variable} ${outfit.variable} antialiased`}
     >
-      <body className="min-h-full">
-        <div className="noise" />
-        {children}
+      <body>
+        <div className="scene" aria-hidden>
+          <div className="noise" />
+        </div>
+        <div className="app">{children}</div>
       </body>
     </html>
   );

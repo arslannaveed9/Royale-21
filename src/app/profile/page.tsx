@@ -14,11 +14,11 @@ export default async function ProfilePage() {
   return (
     <main className="page-shell">
       <ClubNav user={user} />
-      <section className="panel" style={{ width: "min(720px, 100%)", margin: "0 auto" }}>
+      <section className="panel profile-wrap">
         <p className="eyebrow">Membership book</p>
         <h1>{user.displayName}</h1>
         <p className="muted">@{user.username}</p>
-        <div className="stats-grid" style={{ marginTop: 24 }}>
+        <div className="stats-grid">
           <div className="stat">
             <span>Bankroll</span>
             <b>{money(user.chips)}</b>
