@@ -9,10 +9,10 @@ const SUIT: Record<string, string> = {
 };
 
 const sizeMap = {
-  xs: "w-[46px] h-[64px] text-[10px]",
-  sm: "w-[52px] h-[74px] text-[11px]",
-  md: "w-[62px] h-[88px] text-[12px]",
-  lg: "w-[78px] h-[110px] text-[14px]",
+  xs: "card-xs",
+  sm: "card-sm",
+  md: "card-md",
+  lg: "card-lg",
 };
 
 export function PlayingCard({

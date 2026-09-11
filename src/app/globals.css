@@ -31,6 +31,8 @@ body {
   min-height: 100dvh;
   background: var(--ink);
   overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -85,7 +87,7 @@ input {
   min-height: 100dvh;
   display: grid;
   place-items: center;
-  padding: 48px 20px 64px;
+  padding: max(24px, env(safe-area-inset-top)) 20px max(32px, env(safe-area-inset-bottom));
   position: relative;
 }
 
@@ -103,7 +105,7 @@ input {
 }
 
 .hero h1 {
-  font-size: clamp(56px, 11vw, 120px);
+  font-size: clamp(42px, 14vw, 120px);
   line-height: 0.9;
   margin: 0;
   font-weight: 600;
@@ -120,7 +122,7 @@ input {
   max-width: 560px;
   margin: 22px auto 36px;
   color: rgba(246, 237, 216, 0.72);
-  font-size: 18px;
+  font-size: clamp(15px, 2.4vw, 18px);
   line-height: 1.6;
 }
 
@@ -155,6 +157,10 @@ input {
   cursor: pointer;
   border-radius: 999px;
   padding: 12px 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
@@ -195,21 +201,24 @@ input {
 .auth-shell {
   display: grid;
   place-items: center;
-  padding: 24px;
+  justify-items: center;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
 }
 
 .page-shell {
-  width: min(1120px, calc(100% - 32px));
+  width: min(1120px, 100%);
   margin: 0 auto;
-  padding: 18px 0 56px;
+  padding: 18px max(16px, env(safe-area-inset-right)) max(40px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
 }
 
 .auth-card {
   width: min(440px, 100%);
+  display: grid;
+  gap: 14px;
   background: rgba(12, 12, 14, 0.78);
   border: 1px solid var(--line);
   border-radius: 28px;
-  padding: 36px;
+  padding: 28px 22px;
   backdrop-filter: blur(18px);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
 }
@@ -294,10 +303,10 @@ input {
 }
 
 .club-nav {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  gap: 12px 16px;
   padding: 6px 0 18px;
   margin-bottom: 22px;
   border-bottom: 1px solid var(--line);
@@ -320,6 +329,7 @@ input {
 .club-nav nav {
   display: flex;
   gap: 22px;
+  justify-self: center;
 }
 
 .club-nav a {
@@ -517,11 +527,20 @@ input {
 
 .playing-card {
   position: relative;
+  flex: 0 0 auto;
+  width: var(--card-w);
+  height: var(--card-h);
+  font-size: var(--card-fs);
   border-radius: 10px;
   animation: deal-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   box-shadow: 0 14px 24px rgba(0, 0, 0, 0.35);
   user-select: none;
 }
+
+.card-xs { --card-w: 46px; --card-h: 64px; --card-fs: 10px; }
+.card-sm { --card-w: 52px; --card-h: 74px; --card-fs: 11px; }
+.card-md { --card-w: 62px; --card-h: 88px; --card-fs: 12px; }
+.card-lg { --card-w: 78px; --card-h: 110px; --card-fs: 14px; }
 
 .card-face {
   background: linear-gradient(180deg, #fffdf8, #f3ead4);
@@ -642,13 +661,18 @@ input {
   overflow: hidden;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  box-sizing: border-box;
 }
 
 .table-chrome,
 .felt-stage,
 .action-dock {
-  width: min(1200px, calc(100% - 32px));
+  width: min(1200px, 100%);
   margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  box-sizing: border-box;
 }
 
 .table-top {
@@ -672,6 +696,7 @@ input {
 
 .table-top-side.right {
   justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .table-brand {
@@ -711,7 +736,8 @@ input {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px 10px;
   min-height: 36px;
   padding: 0 0 10px;
   font-size: 13px;
@@ -730,6 +756,7 @@ input {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-width: min(420px, 100%);
 }
 
 .invite-tag {
@@ -801,6 +828,8 @@ input {
   margin: 0;
   position: relative;
   z-index: 1;
+  padding: 0 8px;
+  overflow-wrap: anywhere;
 }
 
 .dealer-well,
@@ -875,6 +904,8 @@ input {
   color: var(--gold-bright);
   margin: 0;
   font-size: 15px;
+  overflow-wrap: anywhere;
+  padding: 0 6px;
 }
 
 .hint-inline {
@@ -909,12 +940,12 @@ input {
   display: flex;
   justify-content: center;
   gap: 18px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   padding-bottom: 4px;
 }
 
 .seat {
-  min-width: 150px;
+  min-width: min(150px, 28vw);
   display: grid;
   justify-items: center;
   gap: 6px;
@@ -990,6 +1021,10 @@ input {
   border: 1px solid transparent;
   border-radius: 999px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
 }
 
 .icon-toggle.on {
@@ -1100,7 +1135,17 @@ input {
 .chip-row {
   display: flex;
   gap: 8px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.narrow-only {
+  display: none;
+}
+
+.wide-only {
+  display: inline;
 }
 
 .ghost-link {
@@ -1135,50 +1180,362 @@ input {
 
 @media (max-width: 960px) {
   .mode-grid,
-  .lobby-lower,
-  .stats-grid {
+  .lobby-lower {
     grid-template-columns: 1fr;
   }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .lobby-hero {
     flex-direction: column;
     align-items: stretch;
   }
+
   .bankroll-card {
     text-align: left;
+    min-width: 0;
   }
+
   .felt {
     border-radius: 24px;
     padding: 14px 12px 8px;
   }
+
   .dock-inner {
-    flex-wrap: wrap;
-  }
-  .club-nav {
-    flex-wrap: wrap;
-  }
-  .table-top {
-    column-gap: 8px;
-  }
-  .table-brand strong {
-    max-width: 28vw;
-  }
-  .invite-bar {
     flex-wrap: wrap;
     justify-content: center;
   }
+
+  .table-top {
+    column-gap: 8px;
+  }
+
+  .table-brand strong {
+    max-width: 34vw;
+  }
+
   .seats {
     gap: 10px;
   }
-  .seat {
-    min-width: 120px;
+
+  .mode-card {
+    min-height: 0;
   }
 }
 
 @media (max-width: 720px) {
-  .mode-grid {
-    grid-template-columns: 1fr;
+  .club-nav {
+    grid-template-columns: 1fr auto;
   }
+
+  .club-nav nav {
+    grid-column: 1 / -1;
+    gap: 16px;
+    justify-self: start;
+  }
+
+  .nav-name {
+    display: none;
+  }
+
+  .wordmark {
+    font-size: 16px;
+    letter-spacing: 0.1em;
+  }
+
   .join-row {
     flex-direction: column;
+  }
+
+  .join-row .btn-gold {
+    width: 100%;
+  }
+
+  .hero-actions {
+    width: 100%;
+  }
+
+  .hero-actions .btn-gold,
+  .hero-actions .btn-ghost {
+    min-width: min(220px, 100%);
+  }
+
+  .fan {
+    margin-top: 36px;
+    height: 120px;
+    transform: scale(0.82);
+    transform-origin: top center;
+  }
+
+  .page-shell h1,
+  .lobby-hero h1 {
+    overflow-wrap: anywhere;
+  }
+
+  .table-chrome,
+  .felt-stage,
+  .action-dock {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .table-top {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    row-gap: 6px;
+    min-height: 0;
+  }
+
+  .table-top-side.right {
+    grid-column: 1 / -1;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .table-brand strong {
+    max-width: 46vw;
+  }
+
+  .wide-only {
+    display: none;
+  }
+
+  .narrow-only {
+    display: inline;
+  }
+
+  .invite-help {
+    display: none;
+  }
+
+  .invite-bar em {
+    white-space: normal;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .sound-toggle {
+    min-width: 0;
+  }
+
+  .icon-toggle,
+  .btn-ghost.slim,
+  .btn-gold.slim {
+    padding: 8px 12px;
+    min-height: 40px;
+  }
+
+  .felt {
+    border-radius: 18px;
+    padding: 10px 8px 6px;
+  }
+
+  .felt-wood {
+    box-shadow:
+      inset 0 0 0 8px #5b3d1c,
+      inset 0 0 0 10px #3d2710;
+  }
+
+  .felt-inlay {
+    inset: 6px;
+    border-radius: 14px;
+  }
+
+  .felt-inscribe {
+    font-size: 8px;
+    letter-spacing: 0.06em;
+    line-height: 1.35;
+  }
+
+  .card-xs { --card-w: 38px; --card-h: 54px; --card-fs: 9px; }
+  .card-sm { --card-w: 42px; --card-h: 60px; --card-fs: 10px; }
+  .card-md { --card-w: 48px; --card-h: 68px; --card-fs: 11px; }
+  .card-lg { --card-w: 56px; --card-h: 80px; --card-fs: 12px; }
+
+  .card-row .playing-card + .playing-card {
+    margin-left: -14px;
+  }
+
+  .card-row.tight .playing-card + .playing-card {
+    margin-left: -16px;
+  }
+
+  .empty-spot {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .table-message {
+    font-size: 13px;
+    padding: 0 8px;
+  }
+
+  .hint-inline {
+    max-width: calc(100% - 16px);
+    text-align: center;
+    white-space: normal;
+    border-radius: 14px;
+    line-height: 1.35;
+  }
+
+  .seat {
+    min-width: 96px;
+    flex: 1 1 96px;
+    max-width: 140px;
+  }
+
+  .bet-circle {
+    width: 56px;
+    height: 56px;
+    font-size: 11px;
+    box-shadow: inset 0 0 0 4px rgba(15, 90, 64, 0.55);
+  }
+
+  .seat header {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    text-align: center;
+  }
+
+  .dock-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 8px;
+    border-radius: 16px;
+    padding: 8px;
+  }
+
+  .bet-readout {
+    text-align: center;
+    min-width: 0;
+  }
+
+  .dock-actions,
+  .dock-actions.wrap {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .chip {
+    width: 40px;
+    height: 40px;
+    font-size: 10px;
+  }
+
+  .chat-pop {
+    left: 8px;
+    right: 8px;
+    width: auto;
+    bottom: 8px;
+  }
+
+  .sound-arm {
+    width: min(280px, calc(100% - 24px));
+    min-width: 0;
+    padding: 14px 16px;
+  }
+
+  .sound-pulse {
+    right: 10px;
+    top: 10px;
+  }
+
+  .auth-card {
+    border-radius: 22px;
+    padding: 22px 16px;
+  }
+
+  .panel {
+    padding: 18px 16px;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 420px) {
+  .eyebrow {
+    letter-spacing: 0.18em;
+    font-size: 11px;
+  }
+  .stat {
+    padding: 12px;
+  }
+
+  .stat b {
+    font-size: 18px;
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 16vw, 56px);
+  }
+
+  .table-brand span {
+    display: none;
+  }
+
+  .ghost-link {
+    font-size: 13px;
+  }
+}
+
+@media (max-height: 700px) {
+  .fan {
+    margin-top: 28px;
+    height: 110px;
+  }
+
+  .hero {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  .auth-shell {
+    align-items: start;
+  }
+}
+
+@media (max-height: 560px) and (orientation: landscape) {
+  .table-brand span,
+  .felt-inscribe,
+  .invite-bar {
+    display: none;
+  }
+
+  .fan {
+    display: none;
+  }
+
+  .felt {
+    padding: 6px 10px;
+  }
+
+  .bet-circle {
+    width: 44px;
+    height: 44px;
+  }
+
+  .sound-arm {
+    top: 42%;
+    padding: 10px 14px;
+  }
+
+  .card-md { --card-w: 40px; --card-h: 56px; --card-fs: 9px; }
+}
+
+@media (pointer: coarse) {
+  .btn-gold,
+  .btn-ghost,
+  .icon-toggle,
+  .nav-user button {
+    min-height: 44px;
+  }
+
+  .chip {
+    width: 44px;
+    height: 44px;
   }
 }

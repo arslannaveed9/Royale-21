@@ -241,7 +241,10 @@ export function GameTable({ tableId }: { tableId: string }) {
               }}
               type="button"
             >
-              {soundOn && audioReady ? "Sound on" : soundOn ? "Tap for sound" : "Sound off"}
+              <span className="wide-only">
+                {soundOn && audioReady ? "Sound on" : soundOn ? "Tap for sound" : "Sound off"}
+              </span>
+              <span className="narrow-only">{soundOn ? "Sound" : "Muted"}</span>
             </button>
             <button className={`icon-toggle ${chatOpen ? "on" : ""}`} onClick={() => setChatOpen((v) => !v)} type="button">
               Chat
@@ -258,9 +261,9 @@ export function GameTable({ tableId }: { tableId: string }) {
                 {copied === "code" ? "Copied" : "Copy code"}
               </button>
               <button type="button" className="btn-ghost slim" onClick={copyLink}>
-                {copied === "link" ? "Copied" : "Copy invite link"}
+                {copied === "link" ? "Copied" : <><span className="wide-only">Copy invite link</span><span className="narrow-only">Link</span></>}
               </button>
-              <em>
+              <em className="invite-help">
                 {humans < 2
                   ? "Friends sign in, open the Floor, and enter this code."
                   : `${humans} members at the table`}
@@ -288,7 +291,7 @@ export function GameTable({ tableId }: { tableId: string }) {
             }}
           >
             <strong>Enable table sound</strong>
-            <span>Click once — you should hear a beep</span>
+            <span>Tap once — you should hear a beep</span>
           </button>
         ) : null}
         {cueFlash ? <div className="sound-pulse">♪ {cueFlash}</div> : null}

@@ -24,9 +24,11 @@ export function ClubNav({ user }: { user: PublicUser }) {
         <Link href="/profile">Account</Link>
       </nav>
       <div className="nav-user">
-        <span>{user.displayName}</span>
+        <span className="nav-name">{user.displayName}</span>
         <b>{money(user.chips)}</b>
-        <button onClick={logout}>Sign out</button>
+        <button type="button" onClick={logout}>
+          Sign out
+        </button>
       </div>
     </header>
   );
